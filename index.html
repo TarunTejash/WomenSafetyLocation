@@ -31,7 +31,13 @@ if (!navigator.geolocation) {
 document.getElementById("status").innerHTML =
 "Getting Location...";
 
-navigator.geolocation.watchPosition(function(position){
+let watchId = null;
+
+if(watchId !== null){
+    navigator.geolocation.clearWatch(watchId);
+}
+
+watchId = navigator.geolocation.watchPosition(
 
 let lat = position.coords.latitude;
 let lon = position.coords.longitude;
