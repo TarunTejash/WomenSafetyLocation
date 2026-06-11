@@ -22,6 +22,20 @@ Start Tracking
 <h3 id="lon"></h3>
 
 <script>
+  const firebaseConfig = {
+  apiKey: "AIzaSyD6ZdjA43-HpNvI6EH75rIwToMomOrRALs",
+  authDomain: "womensafetyproject-d57dc.firebaseapp.com",
+  databaseURL: "https://womensafetyproject-d57dc-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "womensafetyproject-d57dc",
+  storageBucket: "womensafetyproject-d57dc.firebasestorage.app",
+  messagingSenderId: "119765137642",
+  appId: "1:119765137642:web:84eb3ee560bd1f2db03f93",
+  measurementId: "G-TV7SFJJTCB"
+};
+
+firebase.initializeApp(firebaseConfig);
+
+const db = firebase.database();
 let watchId = null;
 
 function getLocation() {
@@ -56,6 +70,11 @@ function getLocation() {
         "Longitude : " + lon;
 
       console.log(lat, lon);
+      db.ref("location").set({
+      latitude: lat,
+      longitude: lon,
+      timestamp: Date.now()
+      });
 
     },
 
