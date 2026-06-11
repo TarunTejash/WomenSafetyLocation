@@ -74,6 +74,12 @@ function getLocation() {
       latitude: lat,
       longitude: lon,
       timestamp: Date.now()
+      })
+      .then(() => {
+      console.log("Firebase Updated");
+      })
+      .catch((err) => {
+      console.error(err);
       });
 
     },
