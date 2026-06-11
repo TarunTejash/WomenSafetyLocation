@@ -20,51 +20,55 @@ Start Tracking
 <h3 id="lon"></h3>
 
 <script>
-function getLocation() {
-
-if (!navigator.geolocation) {
-    document.getElementById("status").innerHTML =
-    "Geolocation Not Supported";
-    return;
-}
-
-document.getElementById("status").innerHTML =
-"Getting Location...";
-
 let watchId = null;
 
-if(watchId !== null){
+function getLocation() {
+
+  if (!navigator.geolocation) {
+    document.getElementById("status").innerHTML =
+      "Geolocation Not Supported";
+    return;
+  }
+
+  document.getElementById("status").innerHTML =
+    "Getting Location...";
+
+  if (watchId !== null) {
     navigator.geolocation.clearWatch(watchId);
-}
+  }
 
-watchId = navigator.geolocation.watchPosition(
+  watchId = navigator.geolocation.watchPosition(
 
-let lat = position.coords.latitude;
-let lon = position.coords.longitude;
+    function(position) {
 
-document.getElementById("status").innerHTML =
-"Live Tracking";
+      let lat = position.coords.latitude;
+      let lon = position.coords.longitude;
 
-document.getElementById("lat").innerHTML =
-"Latitude : " + lat;
+      document.getElementById("status").innerHTML =
+        "Live Tracking";
 
-document.getElementById("lon").innerHTML =
-"Longitude : " + lon;
+      document.getElementById("lat").innerHTML =
+        "Latitude : " + lat;
 
-console.log(lat, lon);
+      document.getElementById("lon").innerHTML =
+        "Longitude : " + lon;
 
-},
-function(error){
-document.getElementById("status").innerHTML =
-error.message;
-},
-{
-enableHighAccuracy:true,
-enableHighAccuracy: true,
-maximumAge: 0,
-timeout: Infinity
-});
+      console.log(lat, lon);
 
+    },
+
+    function(error) {
+      document.getElementById("status").innerHTML =
+        error.message;
+    },
+
+    {
+      enableHighAccuracy: true,
+      maximumAge: 0,
+      timeout: 10000
+    }
+
+  );
 }
 </script>
 
