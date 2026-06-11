@@ -20,31 +20,43 @@ Start Tracking
 <h3 id="lon"></h3>
 
 <script>
-function getLocation(){
+function getLocation() {
 
-if(navigator.geolocation){
+if (!navigator.geolocation) {
+    document.getElementById("status").innerHTML =
+    "Geolocation Not Supported";
+    return;
+}
 
-document.getElementById("status").innerHTML="Getting Location...";
+document.getElementById("status").innerHTML =
+"Getting Location...";
 
-navigator.geolocation.getCurrentPosition(function(position){
+navigator.geolocation.watchPosition(function(position){
 
-document.getElementById("status").innerHTML="Location Found";
+let lat = position.coords.latitude;
+let lon = position.coords.longitude;
 
-document.getElementById("lat").innerHTML=
-"Latitude : "+position.coords.latitude;
+document.getElementById("status").innerHTML =
+"Live Tracking";
 
-document.getElementById("lon").innerHTML=
-"Longitude : "+position.coords.longitude;
+document.getElementById("lat").innerHTML =
+"Latitude : " + lat;
 
+document.getElementById("lon").innerHTML =
+"Longitude : " + lon;
+
+console.log(lat, lon);
+
+},
+function(error){
+document.getElementById("status").innerHTML =
+error.message;
+},
+{
+enableHighAccuracy:true,
+maximumAge:0,
+timeout:10000
 });
-
-}
-else{
-
-document.getElementById("status").innerHTML=
-"Geolocation Not Supported";
-
-}
 
 }
 </script>
